@@ -11,6 +11,7 @@ const jwt = require('jsonwebtoken');
 **/
 async function registerUserController(req,res) {
     
+    const {username , email, password} =req.body
     const isUserExist = await userModel.findOne({email})
     if (isUserExist) {
         return res.status(400).json({message:"User Already Exists"})
@@ -40,11 +41,11 @@ async function loginUserController(req,res) {
     if (!user) {
         return res.status(400).json({message:"User account not found"})
     }
-    const isPasswordValid = await bcrypt.compare(password.user.password)
+    const isPasswordValid = await bcrypt.compare(password,user.password)
     if (!isPasswordValid) {
         return res.status(400).json({message:"Invalid Password"})
     }
-    const token = jwt.sign({id:user._id}, process.env.JWT_SECRET)
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: "1d" })
     res.cookie('token', token)
 
     res.status(200).json({
