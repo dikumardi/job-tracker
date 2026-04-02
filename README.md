@@ -185,7 +185,7 @@ Authorization: <your_token>
 │   ├── models/          # Mongoose schemas
 │   ├── routes/          # API routes
 │   ├── app.js           # Express app setup
-│   └── index.js         # Server entry point
+└── server.js         # Server entry point   
 │
 ├── .gitignore
 ├── README.md
