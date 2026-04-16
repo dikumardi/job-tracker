@@ -1,82 +1,161 @@
 const jobModel = require("../models/job.model")
 
-/**
-@name createJobController
-@description Add a new job application, Purpose: Store job data when user applies
-**/
-async function createJobController(req,res) {
-   try {
-     // Create job document in DB
-    // Purpose: Save application details
-     const {company , position} = req.body
+// CREATE JOB
+async function createJobController(req, res) {
+    try {
+        const { company, position } = req.body;
 
-    const job = await jobModel.create({
-        company,
-        position,
-        user:req.user.id
-         // Purpose: Assign ownership to logged-in user
+        //  Validation
+        if (!company || !position) {
+            return res.status(400).json({
+                success: false,
+                message: "Company and Position are required"
+            });
+        }
 
-    })
+        const job = await jobModel.create({
+            company,
+            position,
+            user: req.user.id
+        });
 
-    res.status(201).json({message:"Job Created Successfully", job})
-   } catch (error) {
-            res.status(500).json({ error: error.message });
+        res.status(201).json({
+            success: true,
+            message: "Job Created Successfully",
+            data: job
+        });
 
-   }
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: error.message
+        });
+    }
 }
-/**
-@name getJobsController
-@description Purpose: Display all job applications for tracking
-**/
-async function getJobsController(req,res) {
-   const jobs = await jobModel.find({user:req.user.id})
-   res.status(200).json({message:"Jobs Fetched Successfully", jobs})
-    
+
+
+// GET JOBS (with pagination + search + filter)
+async function getJobsController(req, res) {
+    try {
+        const { status, search, page = 1, limit = 5 } = req.query;
+
+        //  Query object
+        let query = { user: req.user.id };
+
+        //  Filter by status
+        if (status) {
+            query.status = status;
+        }
+
+        //  Search by company name
+        if (search) {
+            query.company = { $regex: search, $options: "i" };
+        }
+
+        //  Pagination
+        const skip = (page - 1) * limit;
+
+        const jobs = await jobModel
+            .find(query)
+            .skip(skip)
+            .limit(Number(limit))
+            .sort({ createdAt: -1 });
+
+        const totalJobs = await jobModel.countDocuments(query);
+
+        res.status(200).json({
+            success: true,
+            message: "Jobs Fetched Successfully",
+            totalJobs,
+            currentPage: Number(page),
+            totalPages: Math.ceil(totalJobs / limit),
+            data: jobs
+        });
+
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: error.message
+        });
+    }
 }
-/**
-@name updateJobController
-@description Purpose: Track job progress (Applied → Interview → Selected/Rejected)
- **/
-async function updateJobController(req,res) {
-    const {id} = req.params
-    const {status} = req.body
 
-    // Find job by ID and update status
-    // Purpose: Modify job progress stage
 
-    const job = await jobModel.findByIdAndUpdate(
-        id,
-        {status},
-        {new:true}
-    )
+// UPDATE JOB
+async function updateJobController(req, res) {
+    try {
+        const { id } = req.params;
+        const { status } = req.body;
 
-     res.status(200).json({
+        //  Status validation
+        const validStatus = ["Applied", "Interview", "Selected", "Rejected"];
+
+        if (!validStatus.includes(status)) {
+            return res.status(400).json({
+                success: false,
+                message: "Invalid status value"
+            });
+        }
+
+        //  Secure update (only user's job)
+        const job = await jobModel.findOneAndUpdate(
+            { _id: id, user: req.user.id },
+            { status },
+            { new: true }
+        );
+
+        if (!job) {
+            return res.status(404).json({
+                success: false,
+                message: "Job not found"
+            });
+        }
+
+        res.status(200).json({
             success: true,
             message: "Job status updated Successfully",
             data: job
         });
 
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: error.message
+        });
+    }
 }
 
-/**
-@name deleteJobController
-@description Remove unwanted or irrelevant job records
- **/
-async function deleteJobController(req,res) {
-    const {id} = req.params
-        // Delete job by ID
-        // Purpose: Clean up data and manage storage  
-  await jobModel.findByIdAndUpdate(
-        id,)
 
-     res.status(200).json({
-            success: true,
-            message: "Job deleted Successfully",
-        
+// DELETE JOB
+async function deleteJobController(req, res) {
+    try {
+        const { id } = req.params;
+
+        //  Secure delete
+        const job = await jobModel.findOneAndDelete({
+            _id: id,
+            user: req.user.id
         });
 
-}
+        if (!job) {
+            return res.status(404).json({
+                success: false,
+                message: "Job not found"
+            });
+        }
 
+        res.status(200).json({
+            success: true,
+            message: "Job deleted Successfully"
+        });
+
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: error.message
+        });
+    }
+}
 
 
 module.exports = {
