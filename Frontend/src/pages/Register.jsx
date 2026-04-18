@@ -10,8 +10,10 @@ const Register = () => {
   
     };
   return (
-        <form onSubmit={handleRegister} className="p-6 max-w-sm mx-auto">
-    <h1 className='text-7xl mb-7'>Stay Organized. <span className='inline whitespace-nowrap   text-amber-400'> Get Hired</span> </h1>
+    <main className="w-full h-screen bg-amber-100">
+    
+            <form onSubmit={handleRegister} className="p-6 max-w-sm mx-auto">
+    <h1 className='text-7xl mb-7 text-gray-700'>Stay Organized. <span className='whitespace-nowrap font-bold  text-amber-500'> Get Hired</span> </h1>
       <input
        placeholder="Username" 
       className="w-full mb-3 border bg-amber-100 px-4 py-2 rounded-md  border-gray-400 focus:outline-none focus:ring-amber-700"
@@ -32,6 +34,8 @@ const Register = () => {
             <p className=''>Already have an account ?<span  className='text-amber-600'>Login</span> </p>
 
     </form>
+    </main>
+
   )
 }
 

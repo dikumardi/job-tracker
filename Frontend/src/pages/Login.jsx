@@ -9,8 +9,9 @@ const Login = () => {
   };
 
   return (
+<main className="w-full h-screen bg-amber-100">
     <form onSubmit={handleLogin} className="p-6 max-w-sm mx-auto">
-    <h1 className='text-6xl mb-7'>Welcome <span className='text-amber-400'>, Back</span> </h1>
+    <h1 className='text-6xl mb-7'>Welcome <span className='text-amber-400 font-bold'>, Back</span> </h1>
       <input
        placeholder="Email" 
       className="w-full mb-3 border bg-amber-100 px-4 py-2 rounded-md  border-gray-400 focus:outline-none focus:ring-amber-700"
@@ -26,6 +27,7 @@ const Login = () => {
             <p> Create an account. <a href="" className='text-amber-600'>Register</a></p>
 
     </form>
+</main>
 
 )
 }
