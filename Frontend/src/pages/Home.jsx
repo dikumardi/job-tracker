@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 const Home = () => {
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-100 text-gray-800">
+    <div className="min-h-screen flex flex-col bg-linear-to-br from-amber-50 via-orange-50 to-yellow-100 text-gray-800">
 
       {/* 🔝 Navbar */}
       <nav className="flex justify-between items-center px-8 py-5 backdrop-blur-md bg-white/40 border-b border-white/40 sticky top-0 z-50">
@@ -46,7 +46,7 @@ const Home = () => {
 
           <Link
             to="/login"
-            className="border border-amber-200 px-7 py-3 rounded-full hover:bg-white transition"
+            className="border border-amber-200 px-7 py-3 rounded-full hover:scale-105  hover:bg-white transition"
           >
             Login
           </Link>
@@ -54,9 +54,9 @@ const Home = () => {
       </div>
 
       {/* ✨ Features */}
-      <div className="grid md:grid-cols-3 gap-6 px-10 mt-24 max-w-6xl mx-auto">
+      <div className="grid md:grid-cols-3 gap-6 px-10 mt-24 max-w-6xl mx-auto ">
 
-        <div className="bg-white/70 backdrop-blur-xl p-6 rounded-2xl border border-white shadow-sm hover:shadow-md transition">
+        <div className="bg-white/70 backdrop-blur-xl p-6 rounded-2xl border border-white shadow-sm hover:shadow-md transition hover:scale-105 ">
           <h3 className="font-bold text-xl mb-2 text-amber-700">
             Track Jobs
           </h3>
@@ -65,7 +65,7 @@ const Home = () => {
           </p>
         </div>
 
-        <div className="bg-white/70 backdrop-blur-xl p-6 rounded-2xl border border-white shadow-sm hover:shadow-md transition">
+        <div className="bg-white/70 backdrop-blur-xl p-6 rounded-2xl border border-white shadow-sm hover:shadow-md transition hover:scale-105 ">
           <h3 className="font-bold text-xl mb-2 text-amber-700">
             Update Status
           </h3>
@@ -74,7 +74,7 @@ const Home = () => {
           </p>
         </div>
 
-        <div className="bg-white/70 backdrop-blur-xl p-6 rounded-2xl border border-white shadow-sm hover:shadow-md transition">
+        <div className="bg-white/70 backdrop-blur-xl p-6 rounded-2xl border border-white shadow-sm hover:shadow-md transition hover:scale-105 ">
           <h3 className="font-bold text-xl mb-2 text-amber-700">
             Stay Focused
           </h3>
