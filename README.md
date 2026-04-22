@@ -1,210 +1,125 @@
-# 🚀 Job Tracker 
+# 🚀 Job Tracker (MERN)
 
-A RESTful API built with **Node.js, Express, MongoDB** that allows users to manage their job applications with authentication.
-
----
-
-## 📌 Features
-
-* 🔐 User Authentication (JWT + Cookies)
-* 🧾 Register & Login
-* 📂 Create Job Applications
-* 📄 Get All Jobs (User-specific)
-* 🔄 Update Job Status
-* ❌ Delete Job
-* 🛡️ Protected Routes
+A full-stack web application to manage and track job applications in one place. Built using the MERN stack, it provides secure authentication, job management, and search capabilities for an efficient job tracking workflow.
 
 ---
 
-## 🛠️ Tech Stack
+## ✨ Features
+
+* Secure authentication using JWT (cookies + headers)
+* Create, update, and delete job applications
+* View jobs specific to logged-in user
+* Search jobs by company or position
+* Track application status (Applied, Interview, Rejected, Selected)
+* Protected API routes with middleware
+
+---
+
+## 🛠 Tech Stack
+
+**Frontend**
+
+* React.js
+* Axios
+* React Router
+
+**Backend**
 
 * Node.js
 * Express.js
-* MongoDB + Mongoose
-* JWT (Authentication)
-* bcrypt (Password Hashing)
-* cookie-parser
+* MongoDB (Mongoose)
+* JWT, bcrypt, cookie-parser
 
 ---
 
-## ⚙️ Installation
+## ⚙️ Setup
 
-```bash
-git clone <your-repo-url>
+### 1. Clone the repository
+
+```bash id="a1b2c3"
+git clone https://github.com/dikumardi/job-tracker.git
 cd job-tracker
-npm install
 ```
 
----
+### 2. Install dependencies
 
-## ▶️ Run Server
-
-```bash
-npm start
+```bash id="d4e5f6"
+cd backend && npm install
+cd ../frontend && npm install
 ```
 
-Server will run on:
+### 3. Configure environment variables
 
-```bash
-http://localhost:3000
-```
+Create a `.env` file inside `/backend`:
 
----
-
-## 🔐 Environment Variables
-
-Create a `.env` file:
-
-```env
+```env id="g7h8i9"
 PORT=3000
-MONGO_URI=your_mongodb_connection
-JWT_SECRET=your_secret_key
+MONGO_URI=your_mongodb_uri
+JWT_SECRET=your_secret
+```
+
+### 4. Run the app
+
+```bash id="j1k2l3"
+# backend
+cd backend
+npx nodemon server.js
+
+# frontend (new terminal)
+cd frontend
+npm run dev
 ```
 
 ---
 
-## 📡 API Base URL
+## 📡 API Overview
 
-```
+Base URL:
+
+```id="m4n5o6"
 http://localhost:3000/api
 ```
 
----
+### Auth
 
-## 🔑 Authentication APIs
+* `POST /auth/register`
+* `POST /auth/login`
 
-### 🧾 Register
+### Jobs (Protected)
 
-**POST** `/auth/register`
+* `POST /jobs/create`
+* `GET /jobs/gets`
+* `PUT /jobs/update/:id`
+* `DELETE /jobs/delete/:id`
 
-```json
-{
-  "username": "testuser",
-  "email": "test@gmail.com",
-  "password": "123456"
-}
+### Search
+
+```id="p7q8r9"
+GET /jobs/gets?search=keyword
 ```
 
----
-
-### 🔓 Login
-
-**POST** `/auth/login`
-
-```json
-{
-  "email": "test@gmail.com",
-  "password": "123456"
-}
-```
+Search works on **company** and **position** fields.
 
 ---
 
-## ⚠️ Authentication Setup (Postman)
+## 🛡️ Security
 
-### Option 1: Cookies (Auto)
-
-* Login → Cookie stored automatically
-
-### Option 2: Headers (Manual)
-
-```
-Authorization: <your_token>
-```
+* Passwords hashed using bcrypt
+* JWT-based authentication
+* Routes protected via middleware
+* User-specific data isolation
 
 ---
 
-## 📂 Job APIs (Protected)
 
-### ➕ Create Job
+## 👨‍💻 Author
 
-**POST** `/jobs/create`
-
-```json
-{
-  "company": "Google",
-  "position": "Software Engineer"
-}
-```
-
----
-
-### 📄 Get Jobs
-
-**GET** `/jobs/gets`
-
----
-
-### 🔄 Update Job
-
-**PUT** `/jobs/update/:id`
-
-```json
-{
-  "status": "Interview"
-}
-```
-
-📌 Status values:
-
-* Applied
-* Interview
-* Rejected
-* Selected
-
----
-
-### ❌ Delete Job
-
-**DELETE** `/jobs/delete/:id`
-
----
-
-## 🧪 Testing Flow (Postman)
-
-1. Register User
-2. Login User
-3. Use Cookie / Token
-4. Create Job
-5. Get Jobs
-6. Update Job
-7. Delete Job
-
----
-
-## 📁 Project Structure
-
-```
-.
-├── src
-│   ├── config/          # Configuration files
-│   ├── controllers/     # Controllers (auth, job logic)
-│   ├── db/              # Database connection
-│   ├── middleware/      # Authentication middleware
-│   ├── models/          # Mongoose schemas
-│   ├── routes/          # API routes
-│   ├── app.js           # Express app setup
-└── server.js         # Server entry point   
-│
-├── .gitignore
-├── README.md
-├── package.json
-└── package-lock.json
-```
+Your Name
+GitHub: https://github.com/dikumardi
 
 
 ---
 
-## 🛡️ Middleware
+## ⭐
 
-### protect
-
-* Verifies JWT token
-* Adds `req.user`
-* Secures private routes
-
----
-
-## ⭐ Support
-
-If you like this project, give it a ⭐ on GitHub!
+If you found this useful, consider giving it a star.
