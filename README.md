@@ -1,125 +1,209 @@
-# 🚀 Job Tracker (MERN)
+# 🚀 Job Tracker (MERN Stack)
 
-A full-stack web application to manage and track job applications in one place. Built using the MERN stack, it provides secure authentication, job management, and search capabilities for an efficient job tracking workflow.
+
+A full-stack **Job Tracking Web Application** that helps users manage and monitor their job applications efficiently.
+
+Built with the **MERN Stack (MongoDB, Express, React, Node.js)**, this app provides secure authentication, job management, and search functionality.
 
 ---
 
 ## ✨ Features
 
-* Secure authentication using JWT (cookies + headers)
-* Create, update, and delete job applications
-* View jobs specific to logged-in user
-* Search jobs by company or position
-* Track application status (Applied, Interview, Rejected, Selected)
-* Protected API routes with middleware
+- 🔐 Secure Authentication (JWT + Cookies)
+- ➕ Add Job Applications
+- ✏️ Update Job Details
+- ❌ Delete Jobs
+- 🔍 Search Jobs (Company / Position)
+- 📊 Track Status:
+  - Applied
+  - Interview
+  - Rejected
+  - Selected
+- 🛡️ Protected Routes (Middleware)
+- 👤 User-specific job tracking
 
 ---
 
-## 🛠 Tech Stack
+## 🧠 Tech Stack
 
-**Frontend**
+### 💻 Frontend
+- React.js
+- React Router DOM
+- Axios
+- CSS
 
-* React.js
-* Axios
-* React Router
-
-**Backend**
-
-* Node.js
-* Express.js
-* MongoDB (Mongoose)
-* JWT, bcrypt, cookie-parser
+### ⚙️ Backend
+- Node.js
+- Express.js
+- MongoDB (Mongoose)
+- JWT Authentication
+- bcrypt
+- cookie-parser
+- CORS
 
 ---
 
-## ⚙️ Setup
+## 📁 Project Structure
 
-### 1. Clone the repository
 
-```bash id="a1b2c3"
+```
+job-tracker/
+│
+├── backend/
+│   ├── src/
+│   │   ├── config/
+│   │   ├── controllers/
+│   │   ├── db/
+│   │   ├── middleware/
+│   │   ├── models/
+│   │   ├── routes/
+│   │   └── app.js
+│   │
+│   ├── server.js
+│   └── .env
+│
+├── frontend/
+│   ├── api/
+│   ├── components/
+│   ├── context/
+│   ├── hooks/
+│   ├── pages/
+│   ├── utils/
+│   ├── App.jsx
+│   └── main.jsx
+│
+└── README.md
+```
+
+
+
+---
+
+## ⚙️ Installation & Setup
+
+### 1️⃣ Clone Repository
+
+```bash
 git clone https://github.com/dikumardi/job-tracker.git
 cd job-tracker
 ```
 
-### 2. Install dependencies
+---
 
-```bash id="d4e5f6"
-cd backend && npm install
-cd ../frontend && npm install
+### 2️⃣ Install Dependencies
+
+```bash
+# Backend
+cd backend
+npm install
+
+# Frontend
+cd ../frontend
+npm install
 ```
 
-### 3. Configure environment variables
+---
+
+### 3️⃣ Environment Variables
 
 Create a `.env` file inside `/backend`:
 
-```env id="g7h8i9"
+```env
 PORT=3000
-MONGO_URI=your_mongodb_uri
-JWT_SECRET=your_secret
+MONGO_URI=your_mongodb_connection_string
+JWT_SECRET=your_secret_key
 ```
 
-### 4. Run the app
+---
 
-```bash id="j1k2l3"
-# backend
+### 4️⃣ Run the Application
+
+```bash
+# Start Backend
 cd backend
 npx nodemon server.js
 
-# frontend (new terminal)
+# Start Frontend (new terminal)
 cd frontend
 npm run dev
 ```
 
 ---
 
-## 📡 API Overview
+## 📡 API Endpoints
 
-Base URL:
+### 🔐 Auth Routes
 
-```id="m4n5o6"
-http://localhost:3000/api
-```
-
-### Auth
-
-* `POST /auth/register`
-* `POST /auth/login`
-
-### Jobs (Protected)
-
-* `POST /jobs/create`
-* `GET /jobs/gets`
-* `PUT /jobs/update/:id`
-* `DELETE /jobs/delete/:id`
-
-### Search
-
-```id="p7q8r9"
-GET /jobs/gets?search=keyword
-```
-
-Search works on **company** and **position** fields.
+| Method | Endpoint        | Description        |
+|--------|----------------|--------------------|
+| POST   | /api/auth/register | Register user |
+| POST   | /api/auth/login    | Login user    |
 
 ---
 
-## 🛡️ Security
+### 💼 Job Routes (Protected)
 
-* Passwords hashed using bcrypt
-* JWT-based authentication
-* Routes protected via middleware
-* User-specific data isolation
+| Method | Endpoint                  | Description         |
+|--------|--------------------------|---------------------|
+| POST   | /api/jobs/create         | Create job          |
+| GET    | /api/jobs/gets           | Get all jobs        |
+| PUT    | /api/jobs/update/:id     | Update job          |
+| DELETE | /api/jobs/delete/:id     | Delete job          |
 
 ---
 
+### 🔍 Search Jobs
+
+```http
+GET /api/jobs/gets?search=developer
+```
+
+Search works on:
+- Company name
+- Job position
+
+---
+
+## 🔐 Authentication Flow
+
+1. User registers/logs in
+2. Server generates JWT
+3. Token stored in cookies
+4. Protected routes verified via middleware
+
+---
+
+## 🛡️ Security Features
+
+- 🔒 Password hashing using bcrypt
+- 🔑 JWT-based authentication
+- 🍪 Secure cookie handling
+- 🚫 Unauthorized access protection
+- 👤 User-specific data isolation
+
+---
+
+## 🚀 Future Improvements
+
+- Pagination for jobs
+- Job analytics dashboard
+- Email notifications
+- Resume upload feature
+- Dark mode UI
+
+---
 
 ## 👨‍💻 Author
-
-Your Name
-GitHub: https://github.com/dikumardi
-
+- GitHub: https://github.com/dikumardi
 
 ---
 
-## ⭐
+## ⭐ Support
 
-If you found this useful, consider giving it a star.
+If you like this project:
+
+- ⭐ Star this repo
+- 🍴 Fork it
+- 🛠️ Contribute
+
+---
